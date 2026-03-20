@@ -213,7 +213,7 @@ header.scrolled {
     line-height: 1.02;
     margin-bottom: 2.2rem;
     font-weight: 800;
-    letter-spacing: -3px;
+    letter-spacing: -1.5px;
     color: var(--black);
 }
 
@@ -294,7 +294,7 @@ header.scrolled {
 .hero-badge {
     position: absolute;
     bottom: 30px;
-    right: -10px;
+    right: 20px;
     background: var(--white);
     padding: 1.2rem 1.8rem;
     border-radius: 1.2rem;
@@ -351,6 +351,12 @@ header.scrolled {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 3rem;
+}
+
+.pricing-grid {
+    grid-template-columns: 1fr 1fr;
+    max-width: 900px;
+    margin: 0 auto;
 }
 
 .features-dual-grid {
@@ -549,8 +555,72 @@ header.scrolled {
     }
 }
 
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
 .animate-in {
-    animation: fadeInUp 0.8s ease forwards;
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+/* Social Proof Strip */
+.section-proof {
+    padding: 5rem 0;
+    background: var(--primary-dark);
+    position: relative;
+    overflow: hidden;
+}
+
+.section-proof::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -10%;
+    width: 300px;
+    height: 300px;
+    background: var(--secondary);
+    opacity: 0.05;
+    filter: blur(80px);
+    border-radius: 50%;
+}
+
+.proof-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    text-align: center;
+}
+
+.proof-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 1.5rem;
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.proof-item:last-child {
+    border-right: none;
+}
+
+.proof-number {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: var(--secondary);
+    line-height: 1;
+    display: block;
+}
+
+.proof-label {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.65);
+    font-weight: 500;
+    line-height: 1.4;
 }
 
 /* CTA Section */
@@ -604,23 +674,6 @@ footer a:hover {
     padding-left: 5px;
 }
 
-/* Responsive */
-@media (max-width: 968px) {
-    .container {
-        padding: 0 1.5rem;
-    }
-    .hero {
-        flex-direction: column;
-        padding-top: 8rem;
-        text-align: center;
-        gap: 2rem;
-    }
-    .hero-content h1 {
-        font-size: 3.5rem;
-    }
-    .hero-content p {
-        margin: 0 auto 2rem;
-    }
 /* Background Accents */
 .blob {
     position: absolute;
@@ -649,7 +702,7 @@ footer a:hover {
     animation: parallax 10s ease-in-out infinite alternate;
 }
 
-/* Mobile Overlay Fix */
+/* Mobile Overlay */
 .nav-links.active {
     display: flex;
     position: fixed;
@@ -657,7 +710,7 @@ footer a:hover {
     left: 0;
     width: 100%;
     height: 100vh;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(30px);
     -webkit-backdrop-filter: blur(30px);
     flex-direction: column;
@@ -671,11 +724,56 @@ footer a:hover {
     font-size: 2rem;
 }
 
+/* Responsive */
+@media (max-width: 968px) {
+    .container {
+        padding: 0 1.5rem;
+    }
+
+    .hero {
+        flex-direction: column;
+        padding-top: 8rem;
+        text-align: center;
+        gap: 2rem;
+    }
+
+    .hero-content h1 {
+        font-size: 3.2rem;
+        letter-spacing: -1px;
+    }
+
+    .hero-content p {
+        margin: 0 auto 2rem;
+    }
+
     .menu-toggle {
         display: block;
     }
 
     .header-btns {
         display: none;
+    }
+
+    .proof-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .features-dual-grid {
+        grid-template-columns: 1fr;
+        gap: 4rem;
+    }
+
+    .three-cols {
+        grid-template-columns: 1fr;
+    }
+
+    .pricing-card.featured {
+        transform: scale(1);
+    }
+
+    .mobile-app-section {
+        flex-direction: column;
+        padding: 3rem 2rem;
+        gap: 3rem;
     }
 }

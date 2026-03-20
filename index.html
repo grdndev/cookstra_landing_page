@@ -3,15 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cookstra | Trouvez vos extras en restauration en un clic</title>
-    <meta name="description" content="Cookstra connecte les restaurateurs avec des auto entrepreneurs qualifiés pour des missions ponctuelles. Flexibilité, rapidité et confiance.">
+    <title>Cookstra | Le bon extra, disponible ce soir</title>
+    <meta name="description" content="Cookstra connecte les restaurateurs avec des extras qualifiés et vérifiés en quelques minutes. Recrutement éclair, facturation automatisée, zéro friction.">
+    <!-- Open Graph -->
+    <meta property="og:title" content="Cookstra | Le bon extra, disponible ce soir">
+    <meta property="og:description" content="La plateforme qui connecte les restaurateurs avec des extras qualifiés et vérifiés — en quelques minutes, pas en quelques jours.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="assets/cookstra_hero_chef_1773815584774.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <!-- Favicon -->
+    <link rel="icon" href="assets/Logo.jpg" type="image/png">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Lucide Icons (version verrouillée) -->
+    <script src="https://unpkg.com/lucide@0.309.0/dist/umd/lucide.min.js"></script>
 </head>
 <body>
 
@@ -24,7 +32,7 @@
                 <li><a href="#employeurs">Employeurs</a></li>
                 <li><a href="#auto-entrepreneurs">Auto Entrepreneurs</a></li>
                 <li><a href="#tarifs">Tarifs</a></li>
-                <li><a href="#about">À propos</a></li>
+                <li><a href="#about" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'}); return false;">À propos</a></li>
             </ul>
             <div class="header-btns">
                 <a href="#" class="btn btn-minimal">Connexion</a>
@@ -43,11 +51,11 @@
         <!-- Hero Section -->
         <section class="container hero">
             <div class="hero-content">
-                <h1>Recrutez vos <span class="brush-highlight">extras</span> en toute simplicité.</h1>
-                <p>La plateforme qui connecte les établissements de restauration avec les meilleurs talents auto entrepreneurs pour des missions ponctuelles.</p>
+                <h1>Le bon extra, <span class="brush-highlight">disponible</span> ce soir.</h1>
+                <p>Cookstra connecte les restaurateurs avec des extras qualifiés et vérifiés — en quelques minutes, pas en quelques jours.</p>
                 <div class="cta-group">
-                    <a href="#employeurs" class="btn btn-primary">Je suis un employeur</a>
-                    <a href="#auto-entrepreneurs" class="btn btn-outline">Je suis auto entrepreneur</a>
+                    <a href="#tarifs" class="btn btn-primary">Recruter un extra maintenant</a>
+                    <a href="#auto-entrepreneurs" class="btn btn-outline">Trouver des missions près de moi</a>
                 </div>
                 <div class="app-badges">
                     <a href="#" class="app-badge-link">
@@ -65,6 +73,30 @@
                     <div>
                         <strong>+2500 Missions</strong>
                         <p>réalisées avec succès</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Social Proof Strip -->
+        <section class="section-proof">
+            <div class="container">
+                <div class="proof-grid">
+                    <div class="proof-item reveal">
+                        <strong class="proof-number">+2 500</strong>
+                        <span class="proof-label">Missions réalisées</span>
+                    </div>
+                    <div class="proof-item reveal">
+                        <strong class="proof-number">+1 200</strong>
+                        <span class="proof-label">Extras qualifiés</span>
+                    </div>
+                    <div class="proof-item reveal">
+                        <strong class="proof-number">98%</strong>
+                        <span class="proof-label">Taux de satisfaction</span>
+                    </div>
+                    <div class="proof-item reveal">
+                        <strong class="proof-number">&lt; 5 min</strong>
+                        <span class="proof-label">Pour trouver un extra</span>
                     </div>
                 </div>
             </div>
@@ -168,6 +200,7 @@
             <div class="container">
                 <div class="section-title reveal">
                     <h2>Pourquoi Cookstra ?</h2>
+                    <p>Pensé pour la restauration. Construit pour la confiance.</p>
                 </div>
                 <div class="grid three-cols">
                     <div class="card reveal" style="text-align: center;">
@@ -213,16 +246,16 @@
         <!-- CTA Final -->
         <section class="container" style="margin-bottom: 8rem;">
             <div class="cta-banner reveal" style="background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);">
-                <h2 style="color: var(--secondary);">Prêt à révolutionner votre quotidien ?</h2>
-                <p>Rejoignez la communauté Cookstra dès aujourd'hui.</p>
+                <h2 style="color: var(--secondary);">Votre prochain extra vous attend déjà.</h2>
+                <p>Rejoignez +1 200 extras et des centaines d'établissements qui font confiance à Cookstra.</p>
                 <div class="cta-group">
-                    <a href="#" class="btn btn-white" style="background: white; color: var(--primary); padding: 1.2rem 3rem;">Commencer maintenant</a>
+                    <a href="#tarifs" class="btn btn-white" style="background: white; color: var(--primary); padding: 1.2rem 3rem;">Trouver un extra maintenant →</a>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer style="background: var(--primary-dark); color: var(--white); padding: 5rem 0;">
+    <footer id="about" style="background: var(--primary-dark); color: var(--white); padding: 5rem 0;">
         <div class="container" style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 4rem;">
             <div style="flex: 1.5; min-width: 300px;">
                 <a href="#" class="logo" style="margin-bottom: 2rem; display: block;">
