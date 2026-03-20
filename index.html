@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookstra | Trouvez vos extras en restauration en un clic</title>
+    <meta name="description" content="Cookstra connecte les restaurateurs avec des auto entrepreneurs qualifiés pour des missions ponctuelles. Flexibilité, rapidité et confiance.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <header>
+        <div class="container nav">
+            <a href="#" class="logo">
+                <img src="assets/Logo.jpg" alt="Cookstra Logo">
+            </a>
+            <ul class="nav-links">
+                <li><a href="#employeurs">Employeurs</a></li>
+                <li><a href="#auto-entrepreneurs">Auto Entrepreneurs</a></li>
+                <li><a href="#tarifs">Tarifs</a></li>
+                <li><a href="#about">À propos</a></li>
+            </ul>
+            <div class="header-btns">
+                <a href="#" class="btn btn-minimal">Connexion</a>
+                <a href="#" class="btn btn-primary">S'inscrire</a>
+            </div>
+            <div class="menu-toggle" id="mobile-menu">
+                <i data-lucide="menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="blob" style="top: -100px; right: -100px;"></div>
+    <div class="blob blob-yellow" style="top: 200px; left: -100px;"></div>
+    
+    <main>
+        <!-- Hero Section -->
+        <section class="container hero">
+            <div class="hero-content">
+                <h1>Recrutez vos <span class="brush-highlight">extras</span> en toute simplicité.</h1>
+                <p>La plateforme qui connecte les établissements de restauration avec les meilleurs talents auto entrepreneurs pour des missions ponctuelles.</p>
+                <div class="cta-group">
+                    <a href="#employeurs" class="btn btn-primary">Je suis un employeur</a>
+                    <a href="#auto-entrepreneurs" class="btn btn-outline">Je suis auto entrepreneur</a>
+                </div>
+                <div class="app-badges">
+                    <a href="#" class="app-badge-link">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" alt="Download on App Store">
+                    </a>
+                    <a href="#" class="app-badge-link">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Get it on Google Play">
+                    </a>
+                </div>
+            </div>
+            <div class="hero-image parallax-img">
+                <img src="assets/cookstra_hero_chef_1773815584774.png" alt="Chef Cookstra">
+                <div class="hero-badge">
+                    <div class="badge-icon"><i data-lucide="star"></i></div>
+                    <div>
+                        <strong>+2500 Missions</strong>
+                        <p>réalisées avec succès</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Functional Section -->
+        <section id="employeurs" class="section gray">
+            <div class="container">
+                <div class="features-dual-grid">
+                    <!-- Column 1: Employers -->
+                    <div class="features-column">
+                        <div class="column-header reveal">
+                            <h2>Pour les Employeurs</h2>
+                            <p>Trouvez du renfort qualifié en un clin d'œil.</p>
+                        </div>
+                        <div class="feature-cards-stack">
+                            <div class="card reveal">
+                                <div class="card-icon"><i data-lucide="zap"></i></div>
+                                <h3>Recrutement Éclair</h3>
+                                <p>Postez votre offre et recevez des candidatures d'auto entrepreneurs qualifiés en quelques minutes.</p>
+                            </div>
+                            <div class="card reveal">
+                                <div class="card-icon"><i data-lucide="calendar"></i></div>
+                                <h3>Gestion Simplifiée</h3>
+                                <p>Visualisez vos affectations dans un calendrier interactif et suivez vos missions en temps réel.</p>
+                            </div>
+                            <div class="card reveal">
+                                <div class="card-icon"><i data-lucide="file-text"></i></div>
+                                <h3>Paiement & Facturation</h3>
+                                <p>Facturation hebdomadaire automatisée et paiements sécurisés via Stripe.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Column 2: Auto Entrepreneurs -->
+                    <div id="auto-entrepreneurs" class="features-column">
+                        <div class="column-header reveal">
+                            <h2>Auto Entrepreneurs</h2>
+                            <p>Devenez <span style="color: var(--secondary);">Maître</span> de votre emploi du temps.</p>
+                        </div>
+                        <div class="auto-ent-content reveal">
+                            <ul class="premium-list">
+                                <li><i data-lucide="check-circle"></i> Missions près de chez vous</li>
+                                <li><i data-lucide="check-circle"></i> Paiement rapide et automatique</li>
+                                <li><i data-lucide="check-circle"></i> Flexibilité totale</li>
+                                <li><i data-lucide="check-circle"></i> Support dédié 7j/7</li>
+                            </ul>
+                            <a href="#" class="btn btn-secondary btn-large">Créer mon compte auto entrepreneur</a>
+                        </div>
+                        <div class="hero-image parallax-img reveal" style="margin-top: 3rem;">
+                            <img src="assets/cookstra_waiter_service_1773815600082.png" alt="Auto Entrepreneur Cookstra">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section id="tarifs" class="section" style="background: var(--white);">
+            <div class="container">
+                <div class="section-title reveal">
+                    <h2>Une tarification <span>transparente</span></h2>
+                    <p>Pas de frais cachés, payez uniquement quand vous travaillez.</p>
+                </div>
+                <div class="grid pricing-grid">
+                    <!-- Card 1: Employers -->
+                    <div class="card pricing-card reveal">
+                        <div class="pricing-header">
+                            <h3>Employeurs</h3>
+                            <div class="price">15%<span>/mission</span></div>
+                        </div>
+                        <ul class="pricing-features">
+                            <li><i data-lucide="check"></i> Accès à +2500 profils</li>
+                            <li><i data-lucide="check"></i> Assurance incluse</li>
+                            <li><i data-lucide="check"></i> Facturation automatisée</li>
+                            <li><i data-lucide="check"></i> Support prioritaire</li>
+                        </ul>
+                        <a href="#" class="btn btn-primary w-100">Recruter maintenant</a>
+                    </div>
+                    <!-- Card 2: Auto Entrepreneurs (Featured) -->
+                    <div class="card pricing-card featured reveal" style="transition-delay: 0.2s;">
+                        <span class="badge-popular">LA PLUS POPULAIRE</span>
+                        <div class="pricing-header">
+                            <h3>Auto Entrepreneurs</h3>
+                            <div class="price">0€<span>/frais</span></div>
+                        </div>
+                        <ul class="pricing-features">
+                            <li><i data-lucide="check"></i> Inscription gratuite</li>
+                            <li><i data-lucide="check"></i> 100% de votre gain pour vous</li>
+                            <li><i data-lucide="check"></i> Paiements sécurisés</li>
+                            <li><i data-lucide="check"></i> Flexibilité totale</li>
+                        </ul>
+                        <a href="#" class="btn btn-secondary w-100 btn-glow">Commencer à travailler</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Cookstra Section -->
+        <section id="avantages" class="section gray">
+            <div class="container">
+                <div class="section-title reveal">
+                    <h2>Pourquoi Cookstra ?</h2>
+                </div>
+                <div class="grid three-cols">
+                    <div class="card reveal" style="text-align: center;">
+                        <div class="card-icon"><i data-lucide="shield-check"></i></div>
+                        <h3>Sécurité</h3>
+                        <p>Tous les profils sont vérifiés et les paiements sont sécurisés.</p>
+                    </div>
+                    <div class="card reveal" style="text-align: center; transition-delay: 0.2s;">
+                        <div class="card-icon"><i data-lucide="message-square"></i></div>
+                        <h3>Communication</h3>
+                        <p>Chat intégré pour une coordination fluide entre employeurs et auto entrepreneurs.</p>
+                    </div>
+                    <div class="card reveal" style="text-align: center; transition-delay: 0.4s;">
+                        <div class="card-icon"><i data-lucide="trending-up"></i></div>
+                        <h3>Transparence</h3>
+                        <p>Système de notation mutuelle et suivi précis du chiffre d'affaires.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mobile App Section -->
+        <section class="section">
+            <div class="container mobile-app-section reveal">
+                <div class="hero-image">
+                    <img src="assets/cookstra_calendar_mobile_1773815615452.png" alt="Cookstra Mobile App">
+                </div>
+                <div class="hero-content">
+                    <h2>L'expérience <span>Cookstra</span> dans votre poche</h2>
+                    <p>Téléchargez notre application pour gérer vos missions, vos factures et vos communications en temps réel, où que vous soyez.</p>
+                    <div class="app-badges">
+                        <a href="#" class="app-badge-link">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" alt="Download on App Store">
+                        </a>
+                        <a href="#" class="app-badge-link">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Get it on Google Play">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Final -->
+        <section class="container" style="margin-bottom: 8rem;">
+            <div class="cta-banner reveal" style="background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);">
+                <h2 style="color: var(--secondary);">Prêt à révolutionner votre quotidien ?</h2>
+                <p>Rejoignez la communauté Cookstra dès aujourd'hui.</p>
+                <div class="cta-group">
+                    <a href="#" class="btn btn-white" style="background: white; color: var(--primary); padding: 1.2rem 3rem;">Commencer maintenant</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer style="background: var(--primary-dark); color: var(--white); padding: 5rem 0;">
+        <div class="container" style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 4rem;">
+            <div style="flex: 1.5; min-width: 300px;">
+                <a href="#" class="logo" style="margin-bottom: 2rem; display: block;">
+                    <img src="assets/Logo.jpg" alt="Cookstra Logo" style="height: 60px;">
+                </a>
+                <p style="color: rgba(255,255,255,0.7); max-width: 350px;">Digitaliser la gestion des extras dans la restauration avec excellence et fiabilité.</p>
+            </div>
+            <div style="flex: 1; min-width: 200px;">
+                <h4 style="margin-bottom: 1.5rem;">Liens Rapides</h4>
+                <ul style="list-style: none; color: var(--gray-300);">
+                    <li style="margin-bottom: 0.5rem;"><a href="#employeurs" style="color: inherit; text-decoration: none;">Employeurs</a></li>
+                    <li style="margin-bottom: 0.5rem;"><a href="#auto-entrepreneurs" style="color: inherit; text-decoration: none;">Auto Entrepreneurs</a></li>
+                    <li style="margin-bottom: 0.5rem;"><a href="#tarifs" style="color: inherit; text-decoration: none;">Tarifs</a></li>
+                    <li style="margin-bottom: 0.5rem;"><a href="#" style="color: inherit; text-decoration: none;">À propos</a></li>
+                </ul>
+            </div>
+            <div style="flex: 1; min-width: 200px;">
+                <h4 style="margin-bottom: 1.5rem;">Légal</h4>
+                <ul style="list-style: none; color: var(--gray-300);">
+                    <li style="margin-bottom: 0.5rem;"><a href="#" style="color: inherit; text-decoration: none;">Mentions Légales</a></li>
+                    <li style="margin-bottom: 0.5rem;"><a href="#" style="color: inherit; text-decoration: none;">CGU</a></li>
+                    <li style="margin-bottom: 0.5rem;"><a href="#" style="color: inherit; text-decoration: none;">Confidentialité</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container" style="margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1); text-align: center; color: var(--gray-300);">
+            <p>&copy; 2026 Cookstra. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        // Scroll Reveal Animation
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Header Scroll Effect
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+        
+        if (mobileMenu) {
+            mobileMenu.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+        }
+    </script>
+</body>
+</html>
