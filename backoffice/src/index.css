@@ -1,0 +1,72 @@
+@import "tailwindcss";
+
+:root {
+  --bg-page: #f4f2ec;
+  --bg-panel: #fffefb;
+  --bg-panel-muted: #f2efe7;
+  --text-primary: #161512;
+  --text-secondary: #69645a;
+  --line-soft: #e2ddd2;
+  --accent: #147a73;
+  --accent-strong: #075d59;
+  --accent-warm: #dd8f22;
+  --radius-lg: 22px;
+  --radius-md: 14px;
+  --shadow-soft: 0 24px 60px rgba(37, 34, 27, 0.12);
+  font-family: 'Manrope', sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  color: var(--text-primary);
+  background:
+    radial-gradient(circle at 20% 15%, rgba(20, 122, 115, 0.18), transparent 34%),
+    radial-gradient(circle at 82% 12%, rgba(221, 143, 34, 0.22), transparent 40%),
+    var(--bg-page);
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: 'Space Grotesk', sans-serif;
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  font-size: 2.25rem;
+  line-height: 2.75rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+h3 {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+}
