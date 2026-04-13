@@ -7,7 +7,7 @@ import { AuthProvider } from './auth/AuthContext'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/backoffice">
       <AuthProvider>
         <App />
       </AuthProvider>

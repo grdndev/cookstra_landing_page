@@ -1,4 +1,4 @@
-import { useState, type SubmitEventHandler } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../auth/AuthContext'
 import { postLogin } from '../api/api'
@@ -11,7 +11,7 @@ export function LoginPage() {
   const [error, setError] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const handleSubmit: SubmitEventHandler = async (event) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
     setError('')
     setIsSubmitting(true)
@@ -27,6 +27,9 @@ export function LoginPage() {
 
       console.log("response", data)
 
+      if (!['admin', 'hr'].includes(data.data.user.role)) {
+        throw new Error('Accès réservé aux administrateurs et RH.')
+      }
       login(data.data.user, data.data.token)
       navigate('/', { replace: true })
     } catch (err) {

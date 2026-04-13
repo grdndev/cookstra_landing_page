@@ -1,27 +1,77 @@
+import { useEffect, useState } from "react"
+import { useAuth } from "../auth/AuthContext"
+import { getPayouts } from "../api/api"
+
+type Invoice = {
+  id: string
+  invoice_number: string
+  status: string
+  issue_date: string
+  amount_total_ttc_cents: number
+  commission_amount_ht_cents: number
+  currency: string
+  employer_company_name: string
+  freelance_name: string
+  service_start_date: string
+  service_end_date: string
+}
+
+const statusLabels: Record<string, string> = {
+  paid: 'Payée',
+  pending: 'En attente',
+  failed: 'Échec',
+}
+
 export default function PayoutsPage() {
+  const { token } = useAuth()
+  const [invoices, setInvoices] = useState<Invoice[]>([])
+  const [loading, setLoading] = useState(true)
+  const [total, setTotal] = useState(0)
+
+  useEffect(() => {
+    getPayouts(token!).then(r => r.json()).then(d => {
+      if (d.success) { setInvoices(d.data); setTotal(d.total) }
+    }).finally(() => setLoading(false))
+  }, [])
+
+  if (loading) return <div className="animate-pulse">Chargement...</div>
+
   return (
-    <main>
+    <main className="flex flex-col gap-4">
       <div>
-        <h2>Operations overview</h2>
-        <p className="mt-2.5 text-(--text-secondary)">Track key metrics and keep the kitchen flow healthy.</p>
+        <h2>Paiements <span className="text-base font-normal text-(--text-secondary)">({total})</span></h2>
       </div>
 
-      <section className="mt-4.5 grid grid-cols-3 gap-3 max-[900px]:grid-cols-1" aria-label="Core metrics">
-        <article className="rounded-lg border border-(--line-soft) bg-(--bg-panel-muted) p-4 [background:linear-gradient(145deg,rgba(221,143,34,0.14),transparent_65%),var(--bg-panel-muted)]">
-          <p className="font-bold text-(--text-secondary)">Open orders</p>
-          <p className="mt-2 text-[clamp(1.5rem,3vw,2.1rem)] font-bold font-['Space_Grotesk',sans-serif]">12</p>
-        </article>
+      <table className="text-left border-separate border-spacing-y-2 text-sm">
+        <thead>
+          <tr>
+            <th>N° Facture</th>
+            <th>Employeur</th>
+            <th>Freelance</th>
+            <th>Période</th>
+            <th>Montant TTC</th>
+            <th>Commission</th>
+            <th>Statut</th>
+          </tr>
+        </thead>
+        <tbody>
+          {invoices.map(inv => (
+            <tr key={inv.id}>
+              <td className="pr-4">{inv.invoice_number}</td>
+              <td className="pr-4">{inv.employer_company_name}</td>
+              <td className="pr-4">{inv.freelance_name}</td>
+              <td className="pr-4">
+                {new Date(inv.service_start_date).toLocaleDateString('fr-FR')} → {new Date(inv.service_end_date).toLocaleDateString('fr-FR')}
+              </td>
+              <td className="pr-4">{(inv.amount_total_ttc_cents / 100).toFixed(2)} €</td>
+              <td className="pr-4">{(inv.commission_amount_ht_cents / 100).toFixed(2)} €</td>
+              <td>{statusLabels[inv.status] ?? inv.status}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
 
-        <article className="rounded-lg border border-(--line-soft) bg-(--bg-panel-muted) p-4 [background:linear-gradient(145deg,rgba(221,143,34,0.14),transparent_65%),var(--bg-panel-muted)]">
-          <p className="font-bold text-(--text-secondary)">Revenue today</p>
-          <p className="mt-2 text-[clamp(1.5rem,3vw,2.1rem)] font-bold font-['Space_Grotesk',sans-serif]">$2,840</p>
-        </article>
-
-        <article className="rounded-lg border border-(--line-soft) bg-(--bg-panel-muted) p-4 [background:linear-gradient(145deg,rgba(221,143,34,0.14),transparent_65%),var(--bg-panel-muted)]">
-          <p className="font-bold text-(--text-secondary)">Avg prep time</p>
-          <p className="mt-2 text-[clamp(1.5rem,3vw,2.1rem)] font-bold font-['Space_Grotesk',sans-serif]">18 min</p>
-        </article>
-      </section>
+      {invoices.length === 0 && <p className="text-(--text-secondary)">Aucun paiement.</p>}
     </main>
   )
 }

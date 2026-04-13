@@ -2,86 +2,71 @@ import { useEffect, useState } from "react"
 import { useAuth } from "../auth/AuthContext";
 import { getDashboard } from "../api/api";
 
-type Mission = {
-  id: string;
-  title: string;
-  status: string;
-  date: Date;
-  hourly_rate: number;
-  start_time: string;
-  end_time: string;
-  applications: number;
+type DashboardData = {
+  missions: { total: number; open: number; completed: number; in_progress: number }
+  users: { total: number; freelances: number; employers: number }
+  revenue: { total: number; commission: number }
+  topMissions: { label: string; count: number }[]
 }
 
 export default function DashboardPage() {
   const { token } = useAuth()
-  const [missions, setMissions] = useState<Mission[]>([])
+  const [data, setData] = useState<DashboardData | null>(null)
   const [loading, setLoading] = useState(true)
 
-  async function loadMissions() {
-    try {
-      const response = await getDashboard(token!)
-      if (response.ok) {
-        const data = await response.json()
-        setMissions(data.data)
-      }
-    } finally {
-      setLoading(false)
-    }
-  }
-
   useEffect(() => {
-    loadMissions()
+    getDashboard(token!).then(r => r.json()).then(d => {
+      if (d.success) setData(d.data)
+    }).finally(() => setLoading(false))
   }, [])
 
-  if (loading) {
-    return <div className="animate-pulse">Chargement...</div>
-  }
-
-  const completedMissions = missions.filter(m => m.status === 'completed')
-  const earnings = completedMissions.reduce((total, mission) => {
-    const time = new Date(`1970-01-01T${mission.end_time}:00Z`).getTime() - new Date(`1970-01-01T${mission.start_time}:00Z`).getTime()
-    const hours = time / (1000 * 60 * 60)
-    return total + hours * mission.hourly_rate
-  }, 0)
-  const favorites = missions.sort((a, b) => b.applications - a.applications).slice(0, 3)
+  if (loading) return <div className="animate-pulse">Chargement...</div>
+  if (!data) return <div>Erreur de chargement</div>
 
   return (
-    <main>
+    <main className="flex flex-col gap-8">
       <div>
         <h2>Statistiques de la plateforme</h2>
       </div>
 
-      <section className="mt-4.5 grid grid-cols-3 gap-3 max-[900px]:grid-cols-1" aria-label="Core metrics">
-        <article className="rounded-lg border border-(--line-soft) bg-(--bg-panel-muted) p-4 [background:linear-gradient(145deg,rgba(221,143,34,0.14),transparent_65%),var(--bg-panel-muted)]">
+      <section className="grid grid-cols-3 gap-3 max-[900px]:grid-cols-1">
+        <article className="rounded-lg border border-(--line-soft) bg-(--bg-panel-muted) p-4">
           <p className="font-bold text-(--text-secondary)">Missions postées</p>
-          <p className="mt-2 text-[clamp(1.5rem,3vw,2.1rem)] font-bold font-['Space_Grotesk',sans-serif]">{missions.length}</p>
+          <p className="mt-2 text-[clamp(1.5rem,3vw,2.1rem)] font-bold">{data.missions.total}</p>
+          <p className="mt-1 text-sm text-(--text-secondary)">{data.missions.open} ouvertes · {data.missions.in_progress} en cours</p>
         </article>
-
-        <article className="rounded-lg border border-(--line-soft) bg-(--bg-panel-muted) p-4 [background:linear-gradient(145deg,rgba(221,143,34,0.14),transparent_65%),var(--bg-panel-muted)]">
+        <article className="rounded-lg border border-(--line-soft) bg-(--bg-panel-muted) p-4">
           <p className="font-bold text-(--text-secondary)">Missions terminées</p>
-          <p className="mt-2 text-[clamp(1.5rem,3vw,2.1rem)] font-bold font-['Space_Grotesk',sans-serif]">{completedMissions.length}</p>
+          <p className="mt-2 text-[clamp(1.5rem,3vw,2.1rem)] font-bold">{data.missions.completed}</p>
         </article>
-
-        <article className="rounded-lg border border-(--line-soft) bg-(--bg-panel-muted) p-4 [background:linear-gradient(145deg,rgba(221,143,34,0.14),transparent_65%),var(--bg-panel-muted)]">
+        <article className="rounded-lg border border-(--line-soft) bg-(--bg-panel-muted) p-4">
           <p className="font-bold text-(--text-secondary)">Chiffre d'affaire</p>
-          <p className="mt-2 text-[clamp(1.5rem,3vw,2.1rem)] font-bold font-['Space_Grotesk',sans-serif]">{earnings.toFixed(2)} €</p>
+          <p className="mt-2 text-[clamp(1.5rem,3vw,2.1rem)] font-bold">{data.revenue.total.toFixed(2)} €</p>
+          <p className="mt-1 text-sm text-(--text-secondary)">Commission : {data.revenue.commission.toFixed(2)} €</p>
         </article>
       </section>
 
-      <div className="mt-10">
-        <h2>Missions les plus demandées</h2>
-      </div>
-
-      <section className="mt-4.5 grid grid-cols-3 gap-3 max-[900px]:grid-cols-1" aria-label="Top missions">
-        {favorites.map(mission => (
-          <article key={mission.id} className="rounded-lg border border-(--line-soft) bg-(--bg-panel-muted) p-4 [background:linear-gradient(145deg,rgba(221,143,34,0.14),transparent_65%),var(--bg-panel-muted)]">
-            <p className="font-bold">{mission.title}</p>
-            <p className="mt-2 text-sm text-(--text-secondary)">Statut : {mission.status}</p>
-            <p className="mt-2 text-sm text-(--text-secondary)">Nombre de candidatures : {mission.applications}</p>
-          </article>
-        ))}
+      <section className="grid grid-cols-3 gap-3 max-[900px]:grid-cols-1">
+        <article className="rounded-lg border border-(--line-soft) bg-(--bg-panel-muted) p-4">
+          <p className="font-bold text-(--text-secondary)">Utilisateurs</p>
+          <p className="mt-2 text-[clamp(1.5rem,3vw,2.1rem)] font-bold">{data.users.total}</p>
+          <p className="mt-1 text-sm text-(--text-secondary)">{data.users.freelances} freelances · {data.users.employers} employeurs</p>
+        </article>
       </section>
+
+      {data.topMissions.length > 0 && (
+        <>
+          <div><h2>Types de missions les plus demandés</h2></div>
+          <section className="grid grid-cols-3 gap-3 max-[900px]:grid-cols-1">
+            {data.topMissions.map(m => (
+              <article key={m.label} className="rounded-lg border border-(--line-soft) bg-(--bg-panel-muted) p-4">
+                <p className="font-bold">{m.label}</p>
+                <p className="mt-2 text-2xl font-bold">{m.count}</p>
+              </article>
+            ))}
+          </section>
+        </>
+      )}
     </main>
   )
 }

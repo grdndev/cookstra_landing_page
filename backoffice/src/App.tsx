@@ -9,6 +9,15 @@ import UsersPage from './pages/UsersPage'
 import PayoutsPage from './pages/PayoutsPage'
 import ParametersPage from './pages/ParametersPage'
 import UserDetailPage from './pages/UserDetailPage'
+import MetiersPage from './pages/MetiersPage'
+import HRPage from './pages/HRPage'
+import { useAuth } from './auth/AuthContext'
+
+function AdminRoute({ children }: { children: React.ReactNode }) {
+  const { user } = useAuth()
+  if (user?.role !== 'admin') return <Navigate to="/hr" replace />
+  return <>{children}</>
+}
 
 function App() {
   return (
@@ -17,13 +26,15 @@ function App() {
 
       <Route element={<ProtectedRoute />}>
         <Route element={<BackofficeLayout />}>
-          <Route path="/" element={<DashboardPage />} />
-          <Route path="/users" element={<UsersPage />} />
-          <Route path="/users/:userId" element={<UserDetailPage />} />
-          <Route path="/missions" element={<MissionsPage />} />
-          <Route path="/documents" element={<DocumentsPage />} />
-          <Route path="/payouts" element={<PayoutsPage />} />
-          <Route path="/parameters" element={<ParametersPage />} />
+          <Route path="/" element={<AdminRoute><DashboardPage /></AdminRoute>} />
+          <Route path="/users" element={<AdminRoute><UsersPage /></AdminRoute>} />
+          <Route path="/users/:userId" element={<AdminRoute><UserDetailPage /></AdminRoute>} />
+          <Route path="/missions" element={<AdminRoute><MissionsPage /></AdminRoute>} />
+          <Route path="/documents" element={<AdminRoute><DocumentsPage /></AdminRoute>} />
+          <Route path="/payouts" element={<AdminRoute><PayoutsPage /></AdminRoute>} />
+          <Route path="/metiers" element={<AdminRoute><MetiersPage /></AdminRoute>} />
+          <Route path="/parameters" element={<AdminRoute><ParametersPage /></AdminRoute>} />
+          <Route path="/hr" element={<HRPage />} />
         </Route>
       </Route>
 

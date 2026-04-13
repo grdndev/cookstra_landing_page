@@ -1,8 +1,12 @@
 import { NavLink, Outlet } from 'react-router-dom'
 import { useAuth } from '../auth/AuthContext'
 
+const navClass = "grid min-h-11.5 place-items-center rounded-xl bg-(--accent) font-bold text-[#fdfdfc] no-underline transition-[transform,background-color] duration-150 hover:-translate-y-px hover:bg-(--accent-strong)"
+
 export function BackofficeLayout() {
-  const { logout } = useAuth()
+  const { logout, user } = useAuth()
+  const isAdmin = user?.role === 'admin'
+  const isHR = user?.role === 'hr'
 
   return (
     <div className="grid min-h-screen grid-cols-[260px_1fr] max-[900px]:grid-cols-1">
@@ -10,45 +14,24 @@ export function BackofficeLayout() {
         <div>
           <p className="mb-2.5 text-[0.74rem] font-bold uppercase tracking-[0.09em] text-(--accent)">Cookstra</p>
           <h1 className="text-[1.45rem]">Backoffice</h1>
+          {isHR && <p className="mt-1 text-xs text-(--accent)">Accès RH</p>}
         </div>
 
         <nav className="grid content-start gap-2.5" aria-label="Main menu">
-          <NavLink
-            className="grid min-h-11.5 place-items-center rounded-xl bg-(--accent) font-bold text-[#fdfdfc] no-underline transition-[transform,background-color] duration-150 hover:-translate-y-px hover:bg-(--accent-strong)"
-            to="/"
-          >
-            Accueil
-          </NavLink>
-          <NavLink
-            className="grid min-h-11.5 place-items-center rounded-xl bg-(--accent) font-bold text-[#fdfdfc] no-underline transition-[transform,background-color] duration-150 hover:-translate-y-px hover:bg-(--accent-strong)"
-            to="/users"
-          >
-            Utilisateurs
-          </NavLink>
-          <NavLink
-            className="grid min-h-11.5 place-items-center rounded-xl bg-(--accent) font-bold text-[#fdfdfc] no-underline transition-[transform,background-color] duration-150 hover:-translate-y-px hover:bg-(--accent-strong)"
-            to="/missions"
-          >
-            Missions
-          </NavLink>
-          <NavLink
-            className="grid min-h-11.5 place-items-center rounded-xl bg-(--accent) font-bold text-[#fdfdfc] no-underline transition-[transform,background-color] duration-150 hover:-translate-y-px hover:bg-(--accent-strong)"
-            to="/documents"
-          >
-            Documents
-          </NavLink>
-          <NavLink
-            className="grid min-h-11.5 place-items-center rounded-xl bg-(--accent) font-bold text-[#fdfdfc] no-underline transition-[transform,background-color] duration-150 hover:-translate-y-px hover:bg-(--accent-strong)"
-            to="/payouts"
-          >
-            Paiement
-          </NavLink>
-          <NavLink
-            className="grid min-h-11.5 place-items-center rounded-xl bg-(--accent) font-bold text-[#fdfdfc] no-underline transition-[transform,background-color] duration-150 hover:-translate-y-px hover:bg-(--accent-strong)"
-            to="/parameters"
-          >
-            Paramètres
-          </NavLink>
+          {isAdmin && (
+            <>
+              <NavLink className={navClass} to="/">Accueil</NavLink>
+              <NavLink className={navClass} to="/users">Utilisateurs</NavLink>
+              <NavLink className={navClass} to="/missions">Missions</NavLink>
+              <NavLink className={navClass} to="/documents">Documents</NavLink>
+              <NavLink className={navClass} to="/payouts">Paiement</NavLink>
+              <NavLink className={navClass} to="/metiers">Métiers</NavLink>
+              <NavLink className={navClass} to="/parameters">Paramètres</NavLink>
+            </>
+          )}
+          {isHR && (
+            <NavLink className={navClass} to="/hr">Candidatures</NavLink>
+          )}
           <button
             className="mt-2 grid min-h-11.5 place-items-center rounded-xl bg-[rgba(255,255,255,0.08)] font-bold text-[#fdfdfc] transition-transform duration-150 hover:-translate-y-px"
             type="button"
