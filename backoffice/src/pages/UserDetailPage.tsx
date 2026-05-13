@@ -16,6 +16,7 @@ type User = {
   last_name?: string
   phone?: string
   city?: string
+  address?: string
   freelance_siret?: string
   freelance_rating?: number
   freelance_missions?: number
@@ -27,6 +28,7 @@ type User = {
   employer_phone?: string
   employer_city?: string
   employer_siret?: string
+  employer_address?: string
   employer_rating?: number
   kbis_document?: string
   rib?: string
@@ -64,6 +66,7 @@ export default function UserDetailPage() {
   const [phone, setPhone] = useState('')
   const [city, setCity] = useState('')
   const [siret, setSiret] = useState('')
+  const [address, setAddress] = useState('')
 
   // Champs employer
   const [companyName, setCompanyName] = useState('')
@@ -71,6 +74,7 @@ export default function UserDetailPage() {
   const [employerPhone, setEmployerPhone] = useState('')
   const [employerCity, setEmployerCity] = useState('')
   const [employerSiret, setEmployerSiret] = useState('')
+  const [employerAddress, setEmployerAddress] = useState('')
 
   async function loadUser() {
     try {
@@ -87,11 +91,13 @@ export default function UserDetailPage() {
         setPhone(u.phone || '')
         setCity(u.city || '')
         setSiret(u.freelance_siret || '')
+        setAddress(u.address || '')
         setCompanyName(u.company_name || '')
         setContactName(u.contact_name || '')
         setEmployerPhone(u.employer_phone || '')
         setEmployerCity(u.employer_city || '')
         setEmployerSiret(u.employer_siret || '')
+        setEmployerAddress(u.employer_address || '')
       } else {
         const data = await response.json().catch(() => ({}))
         setError(`Erreur ${response.status}: ${data.message || 'inconnue'}`)
@@ -107,6 +113,13 @@ export default function UserDetailPage() {
     setSaving(true)
     setSaved(false)
     setError('')
+
+    if (!siret) {
+      setError('Le champ SIRET est obligatoire pour les freelances.')
+      setSaving(false)
+      return
+    }
+
     try {
       const payload: Record<string, unknown> = {
         email,
@@ -119,12 +132,14 @@ export default function UserDetailPage() {
         payload.phone = phone
         payload.city = city
         payload.siret = siret
+        payload.address = address
       } else if (user?.role === 'employer') {
         payload.company_name = companyName
         payload.contact_name = contactName
         payload.employer_phone = employerPhone
         payload.employer_city = employerCity
         payload.employer_siret = employerSiret
+        payload.employer_address = employerAddress
       }
       const res = await postUser(token!, userId!, payload)
       if (res.ok) {
@@ -180,6 +195,12 @@ export default function UserDetailPage() {
         <span className="rounded-full bg-(--bg-panel-muted) px-2 py-0.5 text-xs font-medium text-(--text-secondary)">
           {roleLabels[user.role] ?? user.role}
         </span>
+        <button
+          onClick={() => navigate(`/users/${userId}/documents`)}
+          className="ml-auto rounded-lg border border-(--line-soft) px-4 py-1.5 text-sm font-medium hover:bg-(--bg-panel-muted) transition-colors"
+        >
+          Documents
+        </button>
       </div>
 
       <div className="grid grid-cols-2 gap-4 max-[700px]:grid-cols-1">
@@ -287,8 +308,11 @@ export default function UserDetailPage() {
               <Field label="Ville">
                 <input value={city} onChange={e => setCity(e.target.value)} className={inputClass} />
               </Field>
-              <Field label="SIRET">
+              <Field label="SIRET *">
                 <input value={siret} onChange={e => setSiret(e.target.value)} className={inputClass} />
+              </Field>
+              <Field label="Adresse postale">
+                <input value={address} onChange={e => setAddress(e.target.value)} className={inputClass} />
               </Field>
             </div>
           </div>

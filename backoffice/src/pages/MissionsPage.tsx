@@ -6,9 +6,11 @@ type Mission = {
   id: string
   title: string
   date: string
+  end_date: string | null
   city: string
   status: string
   hourly_rate: number
+  worked_hours: number | null
   company_name: string
   mission_type: string
   freelance_first_name: string | null
@@ -123,8 +125,11 @@ export default function MissionsPage() {
                 <th className="pr-4 pb-2">Titre</th>
                 <th className="pr-4 pb-2">Employeur</th>
                 <th className="pr-4 pb-2">Type</th>
-                <th className="pr-4 pb-2">Date</th>
+                <th className="pr-4 pb-2">Début</th>
+                <th className="pr-4 pb-2">Fin</th>
                 <th className="pr-4 pb-2">Ville</th>
+                <th className="pr-4 pb-2">Nb Heures</th>
+                <th className="pr-4 pb-2">Taux horaire</th>
                 <th className="pr-4 pb-2">Statut</th>
                 <th className="pr-4 pb-2">Freelance</th>
                 <th className="pb-2">Actions</th>
@@ -137,7 +142,10 @@ export default function MissionsPage() {
                   <td className="pr-4">{m.company_name}</td>
                   <td className="pr-4">{m.mission_type}</td>
                   <td className="pr-4 whitespace-nowrap">{new Date(m.date).toLocaleDateString('fr-FR')}</td>
+                  <td className="pr-4 whitespace-nowrap">{m.end_date ? new Date(m.end_date).toLocaleDateString('fr-FR') : '—'}</td>
                   <td className="pr-4">{m.city}</td>
+                  <td className="pr-4">{m.worked_hours != null ? `${m.worked_hours} h` : '—'}</td>
+                  <td className="pr-4">{m.hourly_rate != null ? `${m.hourly_rate} €/h` : '—'}</td>
                   <td className="pr-4">
                     <span className={`rounded-full border px-2 py-0.5 text-xs font-medium ${statusColors[m.status] ?? 'border-(--line-soft) text-(--text-secondary)'}`}>
                       {statusLabels[m.status] ?? m.status}

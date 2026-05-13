@@ -31,7 +31,6 @@ export function BackofficeLayout() {
               <NavLink className={navClass} to="/documents">Documents</NavLink>
               <NavLink className={navClass} to="/payouts">Paiement</NavLink>
               <NavLink className={navClass} to="/metiers">Métiers</NavLink>
-              <NavLink className={navClass} to="/parameters">Paramètres</NavLink>
             </>
           )}
           {isHR && (

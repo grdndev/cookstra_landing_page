@@ -50,6 +50,10 @@ export function getDocuments(token: string, params = '') {
     return fetch(`${API_URL}/api/admin/documents${params}`, { headers: headers(token) })
 }
 
+export function getUserDocuments(token: string, userId: string) {
+    return fetch(`${API_URL}/api/admin/user/${userId}/documents`, { headers: headers(token) })
+}
+
 export function patchDocument(token: string, documentId: string, status: string) {
     return fetch(`${API_URL}/api/admin/document/${documentId}`, { method: 'PATCH', headers: headers(token), body: JSON.stringify({ status }) })
 }
@@ -82,12 +86,24 @@ export function getMissionTypes(token: string) {
     return fetch(`${API_URL}/api/admin/mission-types`, { headers: headers(token) })
 }
 
+export function getMissionCategories(token: string) {
+    return fetch(`${API_URL}/api/admin/mission-categories`, { headers: headers(token) })
+}
+
+export function postMissionCategory(token: string, name: string) {
+    return fetch(`${API_URL}/api/admin/mission-categories`, { method: 'POST', headers: headers(token), body: JSON.stringify({ name }) })
+}
+
+export function deleteMissionCategory(token: string, id: string) {
+    return fetch(`${API_URL}/api/admin/mission-categories/${id}`, { method: 'DELETE', headers: headers(token) })
+}
+
 export function postMissionType(token: string, name: string) {
     return fetch(`${API_URL}/api/admin/mission-types`, { method: 'POST', headers: headers(token), body: JSON.stringify({ name }) })
 }
 
-export function patchMissionType(token: string, id: string, name: string, dress_code: string, category: string) {
-    return fetch(`${API_URL}/api/admin/mission-types/${id}`, { method: 'PATCH', headers: headers(token), body: JSON.stringify({ name, dress_code, category }) })
+export function patchMissionType(token: string, id: string, name: string, dress_code: string, category_id: string) {
+    return fetch(`${API_URL}/api/admin/mission-types/${id}`, { method: 'PATCH', headers: headers(token), body: JSON.stringify({ name, dress_code, category_id }) })
 }
 
 export function deleteMissionType(token: string, id: string) {
