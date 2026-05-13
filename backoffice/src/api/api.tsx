@@ -58,6 +58,26 @@ export function getPayouts(token: string, params = '') {
     return fetch(`${API_URL}/api/admin/payouts${params}`, { headers: headers(token) })
 }
 
+export function getUpcomingPayments(token: string) {
+    return fetch(`${API_URL}/api/admin/payouts/upcoming`, { headers: headers(token) })
+}
+
+export function getHoursDisputes(token: string, params = '') {
+    return fetch(`${API_URL}/api/admin/payouts/hours-disputes${params}`, { headers: headers(token) })
+}
+
+export function resolveHoursDispute(
+    token: string,
+    missionId: string,
+    data: { resolved_start: string; resolved_end: string; decision: 'employer' | 'freelance'; note?: string }
+) {
+    return fetch(`${API_URL}/api/admin/payouts/hours-disputes/${missionId}/resolve`, {
+        method: 'POST',
+        headers: headers(token),
+        body: JSON.stringify(data),
+    })
+}
+
 export function getMissionTypes(token: string) {
     return fetch(`${API_URL}/api/admin/mission-types`, { headers: headers(token) })
 }
@@ -66,10 +86,30 @@ export function postMissionType(token: string, name: string) {
     return fetch(`${API_URL}/api/admin/mission-types`, { method: 'POST', headers: headers(token), body: JSON.stringify({ name }) })
 }
 
+export function patchMissionType(token: string, id: string, name: string, dress_code: string, category: string) {
+    return fetch(`${API_URL}/api/admin/mission-types/${id}`, { method: 'PATCH', headers: headers(token), body: JSON.stringify({ name, dress_code, category }) })
+}
+
 export function deleteMissionType(token: string, id: string) {
     return fetch(`${API_URL}/api/admin/mission-types/${id}`, { method: 'DELETE', headers: headers(token) })
 }
 
 export function getHRApplications(token: string) {
     return fetch(`${API_URL}/api/admin/hr/applications`, { headers: headers(token) })
+}
+
+export function createUser(token: string, data: { email: string; password: string; role: string }) {
+    return fetch(`${API_URL}/api/admin/users`, {
+        method: 'POST',
+        headers: headers(token),
+        body: JSON.stringify(data),
+    })
+}
+
+export function validateUser(token: string, userId: string, status: 'approved' | 'rejected') {
+    return fetch(`${API_URL}/api/admin/user/${userId}/validate`, {
+        method: 'PATCH',
+        headers: headers(token),
+        body: JSON.stringify({ status }),
+    })
 }

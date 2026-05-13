@@ -11,6 +11,7 @@ import ParametersPage from './pages/ParametersPage'
 import UserDetailPage from './pages/UserDetailPage'
 import MetiersPage from './pages/MetiersPage'
 import HRPage from './pages/HRPage'
+import CreateUserPage from './pages/CreateUserPage'
 import { useAuth } from './auth/AuthContext'
 
 function AdminRoute({ children }: { children: React.ReactNode }) {
@@ -29,6 +30,7 @@ function App() {
           <Route path="/" element={<AdminRoute><DashboardPage /></AdminRoute>} />
           <Route path="/users" element={<AdminRoute><UsersPage /></AdminRoute>} />
           <Route path="/users/:userId" element={<AdminRoute><UserDetailPage /></AdminRoute>} />
+          <Route path="/users/new" element={<AdminRoute><CreateUserPage /></AdminRoute>} />
           <Route path="/missions" element={<AdminRoute><MissionsPage /></AdminRoute>} />
           <Route path="/documents" element={<AdminRoute><DocumentsPage /></AdminRoute>} />
           <Route path="/payouts" element={<AdminRoute><PayoutsPage /></AdminRoute>} />
