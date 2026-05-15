@@ -3,8 +3,6 @@ import { useAuth } from "../auth/AuthContext"
 import { getUser, postUser, validateUser } from "../api/api"
 import { useParams, useNavigate } from "react-router-dom";
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
-
 type User = {
   id: string
   email: string
@@ -203,7 +201,7 @@ export default function UserDetailPage() {
           onClick={() => navigate(`/users/${userId}/documents`)}
           className="ml-auto rounded-lg border border-(--line-soft) px-4 py-1.5 text-sm font-medium hover:bg-(--bg-panel-muted) transition-colors"
         >
-          Documents
+          Voir les documents
         </button>
       </div>
 
@@ -354,50 +352,6 @@ export default function UserDetailPage() {
         )}
       </div>
 
-      {/* Documents */}
-      {(isFreelance || isEmployer) && (
-        <div className="rounded-lg border border-(--line-soft) bg-(--bg-panel-muted) p-4 flex flex-col gap-4">
-          <h3 className="font-semibold text-sm text-(--text-secondary) uppercase tracking-wide">Documents</h3>
-          <div className="grid grid-cols-2 gap-4 max-[600px]:grid-cols-1">
-            {isFreelance && (
-              <>
-                <DocLink label="Pièce d'identité" url={user.identity_document} />
-                <DocLink label="Kbis" url={user.freelance_kbis} />
-                <DocLink label="RIB" url={user.freelance_rib} />
-              </>
-            )}
-            {isEmployer && (
-              <>
-                <DocLink label="Kbis" url={user.kbis_document} />
-                <DocLink label="RIB" url={user.rib} />
-                {user.logo_url && (
-                  <div className="flex flex-col gap-1">
-                    <span className="text-sm font-medium text-(--text-secondary)">Logo</span>
-                    <img src={`${API_URL}${user.logo_url}`} alt="Logo" className="h-16 w-16 rounded object-cover border border-(--line-soft)" />
-                  </div>
-                )}
-              </>
-            )}
-          </div>
-          {isEmployer && user.photos && (() => {
-            let photoList: string[] = []
-            try { photoList = JSON.parse(user.photos) } catch { photoList = user.photos.split(',').filter(Boolean) }
-            return photoList.length > 0 ? (
-              <div className="flex flex-col gap-2">
-                <span className="text-sm font-medium text-(--text-secondary)">Photos de l'établissement</span>
-                <div className="flex flex-wrap gap-2">
-                  {photoList.map((p, i) => (
-                    <a key={i} href={`${API_URL}${p}`} target="_blank" rel="noreferrer">
-                      <img src={`${API_URL}${p}`} alt={`Photo ${i + 1}`} className="h-20 w-20 rounded object-cover border border-(--line-soft) hover:opacity-80 transition-opacity" />
-                    </a>
-                  ))}
-                </div>
-              </div>
-            ) : null
-          })()}
-        </div>
-      )}
-
       {/* Bouton sauvegarder */}
       <div className="flex items-center gap-3">
         <button
@@ -430,26 +384,6 @@ function Row({ label, value }: { label: string; value?: string | null }) {
     <div className="flex justify-between gap-2 text-sm">
       <span className="text-(--text-secondary)">{label}</span>
       <span className="font-medium text-right">{value || '—'}</span>
-    </div>
-  )
-}
-
-function DocLink({ label, url }: { label: string; url?: string | null }) {
-  return (
-    <div className="flex flex-col gap-1">
-      <span className="text-sm font-medium text-(--text-secondary)">{label}</span>
-      {url ? (
-        <a
-          href={`${API_URL}${url}`}
-          target="_blank"
-          rel="noreferrer"
-          className="text-sm text-(--accent) underline hover:text-(--accent-strong) transition-colors truncate"
-        >
-          Voir le document →
-        </a>
-      ) : (
-        <span className="text-sm text-(--text-secondary)">—</span>
-      )}
     </div>
   )
 }

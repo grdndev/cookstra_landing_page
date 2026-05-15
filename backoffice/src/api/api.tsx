@@ -114,7 +114,7 @@ export function getHRApplications(token: string) {
     return fetch(`${API_URL}/api/admin/hr/applications`, { headers: headers(token) })
 }
 
-export function createUser(token: string, data: { email: string; password: string; role: string }) {
+export function createUser(token: string, data: { email: string; password: string; role: string; siret: string }) {
     return fetch(`${API_URL}/api/admin/users`, {
         method: 'POST',
         headers: headers(token),
