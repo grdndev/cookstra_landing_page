@@ -10,6 +10,7 @@ type User = {
   validation_status?: 'pending' | 'approved' | 'rejected';
   freelance_siret?: string;
   employer_siret?: string;
+  civility?: string;
   first_name?: string;
   last_name?: string;
   company_name?: string;
@@ -136,7 +137,7 @@ function UserSection({
               <tr key={user.id} className="border-b border-(--line-soft)">
                 <td className="pr-4 py-1.5 font-medium">
                   {nameKey === 'freelance'
-                    ? `${user.first_name ?? ''} ${user.last_name ?? ''}`.trim() || '—'
+                    ? `${user.civility ?? ''} ${user.first_name ?? ''} ${user.last_name ?? ''}`.trim() || '—'
                     : user.company_name || '—'}
                 </td>
                 <td className="pr-4">{user.email}</td>

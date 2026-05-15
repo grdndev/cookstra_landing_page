@@ -17,6 +17,7 @@ type User = {
   phone?: string
   city?: string
   address?: string
+  civility?: string
   freelance_siret?: string
   freelance_rating?: number
   freelance_missions?: number
@@ -61,6 +62,7 @@ export default function UserDetailPage() {
   const [profileCompleted, setProfileCompleted] = useState(false)
 
   // Champs freelance
+  const [civility, setCivility] = useState('')
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [phone, setPhone] = useState('')
@@ -86,6 +88,7 @@ export default function UserDetailPage() {
         setEmail(u.email || '')
         setIsVerified(!!u.is_verified)
         setProfileCompleted(!!u.profile_completed)
+        setCivility(u.civility || '')
         setFirstName(u.first_name || '')
         setLastName(u.last_name || '')
         setPhone(u.phone || '')
@@ -127,6 +130,7 @@ export default function UserDetailPage() {
         profile_completed: profileCompleted ? 1 : 0,
       }
       if (user?.role === 'freelance') {
+        payload.civility = civility
         payload.first_name = firstName
         payload.last_name = lastName
         payload.phone = phone
@@ -296,6 +300,13 @@ export default function UserDetailPage() {
           <div className="rounded-lg border border-(--line-soft) bg-(--bg-panel-muted) p-4 flex flex-col gap-4 col-span-2 max-[700px]:col-span-1">
             <h3 className="font-semibold text-sm text-(--text-secondary) uppercase tracking-wide">Profil freelance</h3>
             <div className="grid grid-cols-2 gap-4 max-[600px]:grid-cols-1">
+              <Field label="Civilité">
+                <select value={civility} onChange={e => setCivility(e.target.value)} className={inputClass}>
+                  <option value="">—</option>
+                  <option value="M.">M.</option>
+                  <option value="Mme">Mme</option>
+                </select>
+              </Field>
               <Field label="Prénom">
                 <input value={firstName} onChange={e => setFirstName(e.target.value)} className={inputClass} />
               </Field>
